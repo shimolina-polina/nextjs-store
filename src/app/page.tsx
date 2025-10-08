@@ -2,10 +2,12 @@ import styles from "./page.module.css";
 import { MainPanel } from "src/components/main-panel/MainPanel";
 import { ProductsList } from "src/components/products-list/ProductsList";
 
-export default async function Home() {
-  const products = (await (await fetch('http://localhost:3000/api/products/normal')).json()).products;
+const base = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
 
-  const childrenProducts = (await (await fetch('http://localhost:3000/api/products/children')).json()).products;
+export default async function Home() {
+  const products = (await (await fetch(`${base}/api/products/normal`)).json()).products;
+
+  const childrenProducts = (await (await fetch(`${base}/api/products/children`)).json()).products;
 
 
   return (

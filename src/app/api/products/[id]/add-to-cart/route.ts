@@ -1,10 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { connectToDatabase } from "src/lib/mongodb";
 
-export async function PUT(request, { params }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         const { db } = await connectToDatabase();
-        const productId = parseInt((await params).id);
+    const paramsObj = await params;
+    const productId = parseInt(paramsObj.id);
         const user_id = 1;
 
         const product = await db.collection('products').findOne({ id: productId });
@@ -71,6 +72,7 @@ export async function PUT(request, { params }) {
             });
         }
     } catch (error) {
+        console.error(error)
         return NextResponse.json(
             { error: 'Failed to add product to cart' },
             { status: 500 }
