@@ -5,9 +5,9 @@ import { ProductsList } from "src/components/products-list/ProductsList";
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const products = (await (await fetch(`${process.env.VERCEL_URL || 'http://localhost:3000'}/api/products/normal`)).json()).products;
+  const products = (await (await fetch(`${`https://${process.env.VERCEL_URL}` || 'http://localhost:3000'}/api/products/normal`)).json()).products;
 
-  const childrenProducts = (await (await fetch(`${process.env.VERCEL_URL || 'http://localhost:3000'}/api/products/children`)).json()).products;
+  const childrenProducts = (await (await fetch(`${`https://${process.env.VERCEL_URL}` || 'http://localhost:3000'}/api/products/children`)).json()).products;
 
 
   return (
