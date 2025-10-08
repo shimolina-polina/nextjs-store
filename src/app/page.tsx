@@ -2,12 +2,12 @@ import styles from "./page.module.css";
 import { MainPanel } from "src/components/main-panel/MainPanel";
 import { ProductsList } from "src/components/products-list/ProductsList";
 
-const base = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const products = (await (await fetch(`${base}/api/products/normal`)).json()).products;
+  const products = (await (await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/products/normal`)).json()).products;
 
-  const childrenProducts = (await (await fetch(`${base}/api/products/children`)).json()).products;
+  const childrenProducts = (await (await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/products/children`)).json()).products;
 
 
   return (
