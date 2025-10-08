@@ -1,0 +1,345 @@
+:root{
+	--bg:#f7e9ef;
+	--muted:#6b6b6b;
+	--accent:#1f1f1f;
+}
+
+.container{
+	display:flex;
+    flex-direction: column;
+	gap:3rem;
+	align-items:center;
+	justify-content:space-between;
+	padding:2rem 2rem;
+}
+
+.left{
+    min-width: 14rem;
+	max-width: 620px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6rem;
+    flex: 1;
+}
+
+.heading{
+	font-size: 5rem;
+	line-height:0.95;
+	font-weight:400;
+	color:var(--accent);
+	letter-spacing:2px;
+	margin:0 0 1.25rem 0;
+}
+
+.contentWrapper{
+    display:flex;
+    flex-direction: row;
+    gap: 4rem;
+    max-width: 1200px;
+    width: 100%;
+    /* align-items: center; */
+}
+
+@media (max-width: 930px) {
+    .contentWrapper {
+        gap: 2rem;
+    }
+    
+}
+@media (max-width: 800px) {
+    .contentWrapper {
+        gap: 0;
+    }
+    
+}
+
+.lead{
+	font-size:1.05rem;
+    font-weight: 500;
+	max-width:420px;
+}
+
+.ctaRow{
+	display:flex;
+    flex-direction: column;
+	gap: 2rem;
+	align-items: flex-start;
+}
+
+.learn{
+	color:var(--accent);
+	text-decoration:underline;
+	background:transparent;
+	border:none;
+	font-size:0.95rem;
+    width: fit-content;
+    font-weight: 500;
+}
+
+.shop{
+    display: flex;
+    background:#2b2b2b;
+    color:#fff;
+    border-radius:28px;
+    height: 2.6rem;
+    padding: 0.3rem 4rem 0.3rem 1.4rem;
+    align-items: center;
+    user-select: none;
+}
+
+.shop{
+	position: relative;
+	z-index: 3;
+	cursor: pointer;
+}
+
+.shopIcon {
+    background-color: #ede0ed;
+    border-radius: 20px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: right 160ms ease;
+}
+
+@keyframes knock {
+    0%, 20%, 50%, 80%, 100% {
+        right: 0.25rem;
+    }
+    40% {
+        right: 1.5rem;
+    }
+    60% {
+        right: 0.5rem;
+    }
+}
+
+.shop:hover .shopIcon {
+    animation: knock 1s ease-in-out infinite;
+}
+
+.center{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    /* allow center to grow and share available space with .right */
+    flex: 1 1 0;
+    min-width: 260px;
+    position: relative;
+    top: -2rem;
+}
+
+.bottle {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    user-select: none;
+}
+
+.bottleWrap{
+    position: relative;
+    display: inline-block;
+    filter: drop-shadow(-10px 18px 15px rgba(0, 0, 0, 0.26));
+}
+
+
+@media (max-width: 900px) {
+    .container{
+        padding: 2rem 1rem;
+    }
+
+    .heading{
+        font-size: 2.4rem;
+        text-align: center;
+    }
+
+    .contentWrapper{
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    .left{
+        flex: 0 0 auto;
+        max-width: 100%;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .lead{
+        max-width: 100%;
+    }
+
+    .ctaRow{
+        flex-direction: row;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .shop{
+        padding: 0.5rem 1rem;
+    }
+
+    .center{
+        top: 0;
+        min-width: 0;
+    }
+
+    .ingredientsBadge, .nonGmoBadge, .allergenFreeBadge, .smallPills{
+        display:none; /* hide decorative badges on small screens for clarity */
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1300px) {
+    .heading{
+        font-size: 3.6rem;
+    }
+
+    .left{
+        flex: 0 0 320px;
+    }
+}
+
+.ingredientsBadge {
+    position: absolute;
+    display:flex;
+    top: 30%;
+    left: calc(100% - 5rem);
+}
+
+.nonGmoBadge {
+    position: absolute;
+    display:flex;
+    top: 70%;
+    left: calc(100% - 3rem);
+
+}
+
+.allergenFreeBadge {
+    position: absolute;
+    display:flex;
+    top: 80%;
+    left: -5rem;
+}
+
+.minusAllergen {
+    background-color: white;
+    border-radius: 50%;
+    height: 2rem;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.555);
+    margin-left: 0.2rem;
+    position: relative;
+    user-select: none;
+}
+
+
+.minusAllergen::before {
+    content: '';
+    position: absolute;
+    width: 0.5rem;
+    height: 6px;
+    background-color: white;;
+    top: 17px;
+    left: 0;
+    transform: translate(-50%, -50%);
+    animation: pulse 2s infinite;
+}
+
+.badgeAllergen {
+    height: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    white-space: nowrap;
+    padding: 0 1rem;
+    align-items: center;
+    justify-content: center;font-weight: 300;
+
+}
+
+.plusIngredients {
+    background-color: white;
+    border-radius: 50%;
+    height: 2rem;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.555);
+    margin-right: 0.2rem;
+    position: relative;
+    user-select: none;
+}
+
+.plusIngredients::after {
+    content: '';
+    position: absolute;
+    width: 0.5rem;
+    height: 6px;
+    background-color: white;;
+    top: 17px;
+    left: 2rem;
+    transform: translate(-50%, -50%);
+    animation: pulse 2s infinite;
+}
+
+.badgeIngredients {
+    height: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    white-space: nowrap;
+    padding: 0 1rem;
+    align-items: center;
+    justify-content: center;
+    font-weight: 300;
+}
+
+.badgePlus{
+	background:#fffb;
+	border-radius:50%;
+	width:22px;
+	height:22px;
+	display:inline-flex;
+	align-items:center;
+	justify-content:center;
+	font-size:0.9rem;
+    font-weight: 300;
+}
+
+.smallPills{
+	position:absolute;
+	right:0.6rem;
+	top:40%;
+	transform:translateY(-50%);
+	width:100px;
+	height:100px;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	background:rgba(255,255,255,0.8);
+	border-radius:50%;
+	box-shadow:0 8px 20px rgba(0,0,0,0.06);
+	padding:0.6rem;
+}
+
+.right {
+    flex: 1 1 0;
+    min-width: 14rem;
+}

@@ -1,0 +1,30 @@
+.container {
+    display:flex;
+    flex-direction: column;
+	gap:3rem;
+	align-items: center;
+	justify-content:space-between;
+    padding: 3rem 2rem 0rem 2rem;
+    flex: 1;
+}
+
+.arrivalsHeader {
+    letter-spacing: 2px;
+    font-size: 4rem;
+    font-weight: 400;
+}
+
+.description {
+    font-size: 2rem;
+    max-width: 800px;
+    text-align: center;
+}
+
+.contentWrapper {
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+}
