@@ -1,56 +1,55 @@
 'use client'
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styles from './AddToCartButton.module.css'
 import { useRouter } from 'next/navigation';
 import { debounce } from 'lodash';
 
 export const AddToCartButton = ({productId, amountInCart}: {productId: number, amountInCart?: number}) => {
-    const router = useRouter()
     const [optimisticAmount, setOptimisticAmount] = useState(amountInCart || 0);
+    const previousAmountRef = useRef(0);
 
-    const debouncedReset = debounce(() => {
-        router.refresh()
-    }, 3000);
 
-const handleAddToCart = async () => {
-    const previousAmount = optimisticAmount;
-    
-    try {
-        setOptimisticAmount(prev => prev + 1);
-            const response = await fetch(`/api/products/${productId}/add-to-cart`, { 
-            method: 'PUT' 
+    const updateCartQuantity = async (quantity: number) => {
+        console.log("quantity", quantity)
+        try {
+            const response = await fetch(`/api/products/${productId}/update-cart`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ quantity }),
             });
             
             if (!response.ok) {
-            throw new Error('Failed to add to cart');
+                throw new Error('Failed to update cart');
             }
             
-            debouncedReset();
         } catch (error) {
-            setOptimisticAmount(previousAmount);
-            console.error('Error adding to cart:', error);
+            setOptimisticAmount(previousAmountRef.current);
+            console.error('Error updating cart:', error);
         }
-}
+    };
 
-const removeFromCart = async () => {
-    const previousAmount = optimisticAmount;
-    
-    try {
-        setOptimisticAmount(prev => prev - 1);
-            const response = await fetch(`/api/products/${productId}/remove-from-cart`, { 
-            method: 'PUT' 
-        });
-        
-        if (!response.ok) {
-            throw new Error('Failed to remove from cart');
-        }
-        
-        debouncedReset();
-    } catch (error) {
-        setOptimisticAmount(previousAmount);
-        console.error('Error removing from cart:', error);
+    const debouncedUpdateCart = useRef(
+        debounce((quantity: number) => {
+            updateCartQuantity(quantity);
+        }, 200)
+    );
+
+    const handleAddToCart = async () => {
+        const newAmount = optimisticAmount + 1;
+        previousAmountRef.current = optimisticAmount;
+        setOptimisticAmount(newAmount);
+        debouncedUpdateCart.current(newAmount);
+
     }
-}
+
+    const removeFromCart = async () => {
+        const newAmount = Math.max(0, optimisticAmount - 1);
+        previousAmountRef.current = optimisticAmount;
+        setOptimisticAmount(newAmount);
+        debouncedUpdateCart.current(newAmount);
+    }
 
     return (
         <div className={styles.container}>

@@ -2,13 +2,16 @@ import { NextResponse, NextRequest } from "next/server";
 import { connectToDatabase } from "src/lib/mongodb";
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-    let db, client;
     try {
-        const conn = await connectToDatabase();
-        client = conn.client;
-        db = conn.db;
+        const {db} = await connectToDatabase();
         const paramsObj = await params;
         const productId = parseInt(paramsObj.id);
+        
+        const body = await request.json();
+        const itemsCount = body.quantity;
+
+        console.log("itemsCount", itemsCount)
+
         const user_id = 1;
 
         const product = await db.collection('products').findOne({ id: productId });
@@ -25,12 +28,12 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
             const existingItemIndex = currentCart.items.findIndex((item: {product_id: number}) => item.product_id === productId);
         
             if (existingItemIndex > -1) {
-                currentCart.items[existingItemIndex].quantity += 1;
+                currentCart.items[existingItemIndex].quantity = itemsCount;
                 currentCart.items[existingItemIndex].updated_at = new Date();
             } else {
                 currentCart.items.push({
                     product_id: productId,
-                    quantity: 1,
+                    quantity: itemsCount,
                     price: product.price,
                     name: product.name,
                     imageUrl: product.imageUrl,
@@ -56,14 +59,14 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
                 user_id: user_id,
                 items: [{
                     product_id: productId,
-                    quantity: 1,
+                    quantity: itemsCount,
                     price: product.price,
                     name: product.name,
                     imageUrl: product.imageUrl,
                     added_at: new Date()
                 }],
-                total_items: 1,
-                total_price: product.price,
+                total_items: itemsCount,
+                total_price: product.price * itemsCount,
                 created_at: new Date(),
                 updated_at: new Date()
             };
