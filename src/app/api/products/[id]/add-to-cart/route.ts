@@ -2,8 +2,11 @@ import { NextResponse, NextRequest } from "next/server";
 import { connectToDatabase } from "src/lib/mongodb";
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+    let db, client;
     try {
-        const { db } = await connectToDatabase();
+        const conn = await connectToDatabase();
+        client = conn.client;
+        db = conn.db;
         const paramsObj = await params;
         const productId = parseInt(paramsObj.id);
         const user_id = 1;
@@ -77,5 +80,9 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
             { error: 'Failed to add product to cart' },
             { status: 500 }
         );
+    } finally {
+        if (client) {
+            await client.close();
+        }
     }
 }

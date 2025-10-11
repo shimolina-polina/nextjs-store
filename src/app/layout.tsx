@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
   <body className={roboto.className}>
-        <header>
+        <header style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
           <Navbar />
         </header>
         {children}
