@@ -80,9 +80,5 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
             { error: 'Failed to add product to cart' },
             { status: 500 }
         );
-    } finally {
-        if (client) {
-            await client.close();
-        }
-    }
+    } 
 }

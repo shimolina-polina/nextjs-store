@@ -12,17 +12,45 @@ export const AddToCartButton = ({productId, amountInCart}: {productId: number, a
         router.refresh()
     }, 3000);
 
-    const handleAddToCart = async () => {
-        await fetch(`/api/products/${productId}/add-to-cart`, { method: 'PUT' })
+const handleAddToCart = async () => {
+    const previousAmount = optimisticAmount;
+    
+    try {
         setOptimisticAmount(prev => prev + 1);
-        debouncedReset()
-    }
+            const response = await fetch(`/api/products/${productId}/add-to-cart`, { 
+            method: 'PUT' 
+            });
+            
+            if (!response.ok) {
+            throw new Error('Failed to add to cart');
+            }
+            
+            debouncedReset();
+        } catch (error) {
+            setOptimisticAmount(previousAmount);
+            console.error('Error adding to cart:', error);
+        }
+}
 
-    const removeFromCart = async () => {
-        await fetch(`/api/products/${productId}/remove-from-cart`, { method: 'PUT' })
+const removeFromCart = async () => {
+    const previousAmount = optimisticAmount;
+    
+    try {
         setOptimisticAmount(prev => prev - 1);
-        debouncedReset()
+            const response = await fetch(`/api/products/${productId}/remove-from-cart`, { 
+            method: 'PUT' 
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to remove from cart');
+        }
+        
+        debouncedReset();
+    } catch (error) {
+        setOptimisticAmount(previousAmount);
+        console.error('Error removing from cart:', error);
     }
+}
 
     return (
         <div className={styles.container}>

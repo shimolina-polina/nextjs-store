@@ -11,17 +11,30 @@ if (!MONGODB_DB) {
     throw new Error('Please define the MONGODB_DB environment variable inside .env.local')
 }
 
-const client = new MongoClient(MONGODB_URI, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-
+let cachedClient = null;
+let cachedDb = null;
 
 export async function connectToDatabase() {
+    if (cachedClient && cachedDb) {
+      return { client: cachedClient, db: cachedDb };
+    }
+
+    const client = new MongoClient(MONGODB_URI, {
+      serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+      },
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+  });
+
     await client.connect();
-    const database = client.db(MONGODB_DB);
-    return { db: database, client };
+    const db = client.db(MONGODB_DB);
+
+    cachedClient = client;
+    cachedDb = db;
+
+    return { db: cachedDb, client: cachedClient };
 }

@@ -35,8 +35,6 @@ export const getFavourites = async ({user_id}: {user_id: number}) => {
         isFavourite: true,
         inCartAmount: qtyMap[product.id] || 0
     }));
-
-    client.close();
     
     return productsWithFavourite;
 }
