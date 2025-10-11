@@ -42,8 +42,8 @@ export const MainPanel = () => {
                         <span className={styles.badgeIngredients}>premium ingredients</span>
                     </div>
                     <div className={styles.nonGmoBadge}>
-                        <span className={styles.plusIngredients}>+</span>
-                        <span className={styles.badgeIngredients}>non-GMO</span>
+                        <span className={styles.plusGmo}>+</span>
+                        <span className={styles.badgeGmo}>non-GMO</span>
                     </div>
                     <div className={styles.allergenFreeBadge}>
                         <span className={styles.badgeAllergen}>allergen free</span>

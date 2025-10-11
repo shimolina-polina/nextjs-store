@@ -217,6 +217,45 @@
     left: calc(100% - 5rem);
 }
 
+.ingredientsBadge:hover .plusIngredients, .ingredientsBadge:hover .badgeIngredients {
+    transform: scale(1.1);
+    
+}
+
+.ingredientsBadge:hover .plusIngredients {
+    border-radius: 50% 0 0 50%;
+}
+
+.ingredientsBadge:hover .badgeIngredients {
+    border-radius: 0 20px 20px 0;
+}
+
+.nonGmoBadge:hover .plusGmo, .nonGmoBadge:hover .badgeGmo {
+    transform: scale(1.1);
+    
+}
+
+.nonGmoBadge:hover .plusGmo {
+    border-radius: 50% 0 0 50%;
+}
+
+.nonGmoBadge:hover .badgeGmo {
+    border-radius: 0 20px 20px 0;
+}
+
+.allergenFreeBadge:hover .minusAllergen, .allergenFreeBadge:hover .badgeAllergen {
+    transform: scale(1.1);
+    
+}
+
+.allergenFreeBadge:hover .badgeAllergen {
+    border-radius: 20px 0 0 20px;
+}
+
+.allergenFreeBadge:hover .minusAllergen {
+    border-radius: 0 50% 50% 0;
+}
+
 .nonGmoBadge {
     position: absolute;
     display:flex;
@@ -245,6 +284,7 @@
     margin-left: 0.2rem;
     position: relative;
     user-select: none;
+    transition: all 0.2s ease;
 }
 
 
@@ -269,7 +309,7 @@
     padding: 0 1rem;
     align-items: center;
     justify-content: center;font-weight: 300;
-
+    transition: all 0.2s ease;
 }
 
 .plusIngredients {
@@ -285,6 +325,7 @@
     margin-right: 0.2rem;
     position: relative;
     user-select: none;
+    transition: all 0.2s ease;
 }
 
 .plusIngredients::after {
@@ -309,6 +350,48 @@
     align-items: center;
     justify-content: center;
     font-weight: 300;
+    transition: all 0.2s ease;
+}
+
+.plusGmo {
+    background-color: white;
+    border-radius: 50%;
+    height: 2rem;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.555);
+    margin-right: 0.2rem;
+    position: relative;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.plusGmo::after {
+    content: '';
+    position: absolute;
+    width: 0.5rem;
+    height: 6px;
+    background-color: white;;
+    top: 17px;
+    left: 2rem;
+    transform: translate(-50%, -50%);
+    animation: pulse 2s infinite;
+}
+
+.badgeGmo {
+    height: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    white-space: nowrap;
+    padding: 0 1rem;
+    align-items: center;
+    justify-content: center;
+    font-weight: 300;
+    transition: all 0.2s ease;
 }
 
 .badgePlus{
@@ -323,21 +406,6 @@
     font-weight: 300;
 }
 
-.smallPills{
-	position:absolute;
-	right:0.6rem;
-	top:40%;
-	transform:translateY(-50%);
-	width:100px;
-	height:100px;
-	display:flex;
-	align-items:center;
-	justify-content:center;
-	background:rgba(255,255,255,0.8);
-	border-radius:50%;
-	box-shadow:0 8px 20px rgba(0,0,0,0.06);
-	padding:0.6rem;
-}
 
 .right {
     flex: 1 1 0;
