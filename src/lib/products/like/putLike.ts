@@ -1,5 +1,6 @@
 import { Document } from "mongodb";
 import { connectToDatabase } from "src/lib/mongodb";
+import { IFavourite } from "src/types/apiTypes";
 
 export const putLike = async ({productId, user_id}: {productId: number, user_id: number}) => {
     let db, client;
@@ -8,7 +9,7 @@ export const putLike = async ({productId, user_id}: {productId: number, user_id:
             db = conn.db;
             client = conn.client;
         
-            const userFavourites: number[] = (await db.collection<{user_id: number, product_ids: number[]} & Document>("favourites")
+            const userFavourites: number[] = (await db.collection<IFavourite & Document>("favourites")
                 .findOne({ user_id: user_id }))?.product_ids || [];
             
             const newFavourites = [];

@@ -1,4 +1,4 @@
-import { MongoClient, ServerApiVersion } from 'mongodb'
+import { Db, MongoClient, ServerApiVersion } from 'mongodb'
 
 const MONGODB_URI = process.env.MONGODB_URI
 const MONGODB_DB = process.env.MONGODB_DB
@@ -11,15 +11,15 @@ if (!MONGODB_DB) {
     throw new Error('Please define the MONGODB_DB environment variable inside .env.local')
 }
 
-let cachedClient = null;
-let cachedDb = null;
+let cachedClient: MongoClient | null = null;
+let cachedDb: Db | null = null;
 
-export async function connectToDatabase() {
+export async function connectToDatabase(): Promise<{ db: Db; client: MongoClient }> {
     if (cachedClient && cachedDb) {
       return { client: cachedClient, db: cachedDb };
     }
 
-    const client = new MongoClient(MONGODB_URI, {
+    const client = new MongoClient(MONGODB_URI ?? "", {
       serverApi: {
         version: ServerApiVersion.v1,
         strict: true,
