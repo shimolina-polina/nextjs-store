@@ -45,3 +45,7 @@ a {
     color-scheme: dark;
   }
 }
+
+.scroll-lock {
+  overflow: hidden !important;
+}

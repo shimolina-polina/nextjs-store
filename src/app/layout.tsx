@@ -22,11 +22,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-  <body className={roboto.className}>
+      <body className={roboto.className}>
         <header style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
           <Navbar />
         </header>
         {children}
+        <div id='myportal' />
       </body>
     </html>
   );

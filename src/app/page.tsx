@@ -7,8 +7,6 @@ export const dynamic = 'force-dynamic';
 
 export default async function Home() {
 
-  const base = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
-
   const products = await getProducts({user_id: 1, isChildren: false}).then(res => res.products);
 
   const childrenProducts = await getProducts({user_id: 1, isChildren: true}).then(res => res.products);

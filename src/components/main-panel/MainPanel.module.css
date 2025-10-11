@@ -245,7 +245,6 @@
 
 .allergenFreeBadge:hover .minusAllergen, .allergenFreeBadge:hover .badgeAllergen {
     transform: scale(1.1);
-    
 }
 
 .allergenFreeBadge:hover .badgeAllergen {
@@ -261,7 +260,6 @@
     display:flex;
     top: 70%;
     left: calc(100% - 3rem);
-
 }
 
 .allergenFreeBadge {
