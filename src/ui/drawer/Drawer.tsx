@@ -30,6 +30,14 @@ export const Drawer = ({open, children, onClose}: {open: boolean, children: Reac
         }
     }, [])
 
+    useEffect(() => {
+        if(open) {
+            document.documentElement.classList.add('scroll-lock');
+        } else {
+            document.documentElement.classList.remove('scroll-lock');
+        }
+    }, [open])
+
     return (
         <div className={`${styles.overlay} ${open ? styles.open : ''}`}>
             {mounted

@@ -34,7 +34,7 @@ export const MainPanel = () => {
                             height={420}
                             sizes="(max-width: 900px) 80vw, (max-width: 1200px) 40vw, 360px"
                             className={styles.bottle}
-                            priority
+                            priority={true}
                         />
                     </div>
                     <div className={styles.ingredientsBadge}>
