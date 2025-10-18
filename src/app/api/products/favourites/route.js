@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import {getFavourites} from "src/lib/products/favourites/getFavourites";
 
-export async function GET(request) {
+export async function GET() {
     try {
         
         const productsWithFavourite = await getFavourites({user_id: 1})

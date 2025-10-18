@@ -28,8 +28,12 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
             const existingItemIndex = currentCart.items.findIndex((item: {product_id: number}) => item.product_id === productId);
         
             if (existingItemIndex > -1) {
-                currentCart.items[existingItemIndex].quantity = itemsCount;
-                currentCart.items[existingItemIndex].updated_at = new Date();
+                if (itemsCount !== 0) {
+                    currentCart.items[existingItemIndex].quantity = itemsCount;
+                    currentCart.items[existingItemIndex].updated_at = new Date();
+                } else {
+                    currentCart.items.splice(existingItemIndex, 1);
+                }
             } else {
                 currentCart.items.push({
                     product_id: productId,

@@ -20,6 +20,7 @@ export const LikeButton = ({isFavourite, productId}: {isFavourite: boolean, prod
                 throw new Error('Failed to like')
             }
         } catch (error) {
+            console.error(error)
             setOptimisticFavourite(previousState)
         }
 

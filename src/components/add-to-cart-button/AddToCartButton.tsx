@@ -1,16 +1,13 @@
 'use client'
 import { useRef, useState } from 'react';
 import styles from './AddToCartButton.module.css'
-import { useRouter } from 'next/navigation';
 import { debounce } from 'lodash';
 
-export const AddToCartButton = ({productId, amountInCart}: {productId: number, amountInCart?: number}) => {
+export const AddToCartButton = ({productId, amountInCart, onCartUpdate}: {productId: number, amountInCart?: number, onCartUpdate?: (productId: number, newQuantity: number) => void}) => {
     const [optimisticAmount, setOptimisticAmount] = useState(amountInCart || 0);
     const previousAmountRef = useRef(0);
 
-
     const updateCartQuantity = async (quantity: number) => {
-        console.log("quantity", quantity)
         try {
             const response = await fetch(`/api/products/${productId}/update-cart`, {
                 method: 'PUT',
@@ -40,6 +37,7 @@ export const AddToCartButton = ({productId, amountInCart}: {productId: number, a
         const newAmount = optimisticAmount + 1;
         previousAmountRef.current = optimisticAmount;
         setOptimisticAmount(newAmount);
+        if(onCartUpdate) onCartUpdate(productId, newAmount)
         debouncedUpdateCart.current(newAmount);
 
     }
@@ -48,6 +46,7 @@ export const AddToCartButton = ({productId, amountInCart}: {productId: number, a
         const newAmount = Math.max(0, optimisticAmount - 1);
         previousAmountRef.current = optimisticAmount;
         setOptimisticAmount(newAmount);
+        if(onCartUpdate) onCartUpdate(productId, newAmount)
         debouncedUpdateCart.current(newAmount);
     }
 

@@ -20,7 +20,7 @@ export async function connectToDatabase(): Promise<{ db: Db; client: MongoClient
             await cachedClient.db().admin().ping();
             return { client: cachedClient, db: cachedDb };
         } catch (error) {
-            console.log('Cached connection is dead, creating new one');
+            console.error('Cached connection is dead, creating new one', error);
             cachedClient = null;
             cachedDb = null;
         }

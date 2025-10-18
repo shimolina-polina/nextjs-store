@@ -1,12 +1,13 @@
 .drawer {
     position: fixed;
     width: 40vw;
-    background-color: #f9f4f8;
+    min-width: 500px;
     top: 0;
     right: -100%;
     bottom: 0;
     transition: right 0.3s ease-in-out;
     z-index: 1001;
+    overflow: auto;
 }
 
 .drawer.open {
