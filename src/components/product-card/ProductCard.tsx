@@ -13,7 +13,7 @@ export const ProductCard = ({product}: {product: IProduct}) => {
                 alt="Product Image"
                 className={styles.image}
                 width={320}
-                height={320}
+                height={290}
             />            
             <h3 className={styles.name}>{product.name}</h3>
             <p className={styles.description}>{product.description}</p>
